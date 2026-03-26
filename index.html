@@ -649,6 +649,102 @@
     main { padding: 20px 14px 50px; }
     .cheat-grid { grid-template-columns: 1fr; }
   }
+
+  /* ── CLEANING ── */
+  .loc-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .loc-btn {
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 22px;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .loc-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .loc-btn.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--teal-mid);
+  }
+  .loc-panel { display: none; }
+  .loc-panel.active { display: block; }
+
+  .day-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .day-btn {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .day-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .day-btn.active {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: white;
+  }
+  .day-panel { display: none; }
+  .day-panel.active { display: block; }
+
+  .clean-section-head {
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+    padding: 16px 0 8px;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 4px;
+  }
+  .clean-section-head.biweekly-head {
+    color: var(--amber);
+    border-bottom-color: var(--amber-light);
+  }
+  .clean-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 4px;
+  }
+  .clean-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.5;
+  }
+  .clean-list li:last-child { border-bottom: none; }
+  .clean-list input[type="checkbox"] {
+    width: 20px; height: 20px;
+    accent-color: var(--teal);
+    cursor: pointer;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .clean-list li.done-clean label { text-decoration: line-through; color: var(--muted); }
+  .clean-list.biweekly { background: var(--amber-light); border-radius: 8px; padding: 4px 12px; }
+  .clean-list.biweekly li { border-bottom-color: rgba(245,158,11,0.2); }
+
 </style>
 </head>
 <body>
@@ -674,6 +770,7 @@
       <button class="nav-btn" onclick="showPanel('systems', this)">🗂 Systems</button>
       <button class="nav-btn" onclick="showPanel('checklists', this)">✅ Checklists</button>
       <button class="nav-btn" onclick="showPanel('drills', this)">🎯 Practice Drills</button>
+      <button class="nav-btn" onclick="showPanel('cleaning', this)">🧹 Cleaning</button>
     </div>
   </nav>
 </header>
@@ -1487,6 +1584,511 @@
     <div id="searchResults"></div>
   </div>
 
+
+  <!-- ══════════════════════════════════════════
+       CLEANING CHECKLISTS
+  ══════════════════════════════════════════ -->
+  <div class="panel" id="panel-cleaning">
+    <div class="section-title">🧹 Cleaning Checklists</div>
+    <div class="section-desc">Select your location, then your day. Check off tasks as you go. Checkboxes reset on reload.</div>
+
+    <!-- Location tabs -->
+    <div class="loc-tabs">
+      <button class="loc-btn active" onclick="switchLoc('berkley', this)">📍 Berkley</button>
+      <button class="loc-btn" onclick="switchLoc('bloomfield', this)">📍 Bloomfield</button>
+    </div>
+
+    <!-- ── BERKLEY ── -->
+    <div class="loc-panel active" id="loc-berkley">
+
+      <!-- Day selector -->
+      <div class="day-tabs">
+        <button class="day-btn active" onclick="switchDay('berkley','mon',this)">Mon</button>
+        <button class="day-btn" onclick="switchDay('berkley','tue',this)">Tue</button>
+        <button class="day-btn" onclick="switchDay('berkley','wed',this)">Wed</button>
+        <button class="day-btn" onclick="switchDay('berkley','thu',this)">Thu</button>
+        <button class="day-btn" onclick="switchDay('berkley','fri',this)">Fri</button>
+      </div>
+
+      <!-- MONDAY -->
+      <div class="day-panel active" id="berkley-mon">
+        <div class="clean-section-head">Common Areas</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Sweep Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Swiffer Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Wipe Down High Touch Surfaces (Door Handles, Front Desk Counter, Light Switches)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Office Table / Tidy Up Office Space</label></li>
+        </ul>
+        <div class="clean-section-head">Outdoor Spaces</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Check and tidy outdoor spaces</label></li>
+        </ul>
+        <div class="clean-section-head">Treatment Rooms</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Spaces / Tidy Up For Next Day</label></li>
+          <li><input type="checkbox"><label>Take Inventory of Items</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 1 &amp; 3</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe Down Mirrors in Gym</label></li>
+          <li><input type="checkbox"><label>Wipe Down Nustep and Bike</label></li>
+          <li><input type="checkbox"><label>Wipe Down Yellow Bars</label></li>
+          <li><input type="checkbox"><label>Clean / Dust Water Dispenser / Water Rack</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 2 &amp; 4</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Dust / Wipe / Vacuum Under Treatment Tables</label></li>
+          <li><input type="checkbox"><label>Wipe Down Medicine Balls</label></li>
+          <li><input type="checkbox"><label>Wipe Down Bosu Balls, Balance Boards / Discs</label></li>
+          <li><input type="checkbox"><label>Wipe Down Calf Raise / Stretch Board</label></li>
+        </ul>
+      </div>
+
+      <!-- TUESDAY -->
+      <div class="day-panel" id="berkley-tue">
+        <div class="clean-section-head">Common Areas</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Sweep Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Swiffer Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Vacuum Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Wipe Down High Touch Surfaces (Door Handles, Front Desk Counter, Light Switches)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Office Table / Tidy Up Office Space</label></li>
+        </ul>
+        <div class="clean-section-head">Outdoor Spaces</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Check and tidy outdoor spaces</label></li>
+        </ul>
+        <div class="clean-section-head">Treatment Rooms</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Space / Tidy Up For Next Day</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 1 &amp; 3</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Dust All Ledges</label></li>
+          <li><input type="checkbox"><label>Dust Ceiling Corners</label></li>
+          <li><input type="checkbox"><label>Wipe Down ALL Kettlebells + Shelving (Commonly Used Ones)</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 2 &amp; 4</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe Down ALL Dumbbells + Shelving (Commonly Used Ones)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Chairs (Arms / Legs)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Desk Area</label></li>
+        </ul>
+      </div>
+
+      <!-- WEDNESDAY -->
+      <div class="day-panel" id="berkley-wed">
+        <div class="clean-section-head">Common Areas</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Sweep Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Swiffer Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Wipe Down High Touch Surfaces (Door Handles, Front Desk Counter, Light Switches)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Office Table / Tidy Up Office Space</label></li>
+        </ul>
+        <div class="clean-section-head">Outdoor Spaces</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Check and tidy outdoor spaces</label></li>
+        </ul>
+        <div class="clean-section-head">Treatment Rooms</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Space / Tidy Up For Next Day</label></li>
+          <li><input type="checkbox"><label>Wipe Down Hydrocollator</label></li>
+        </ul>
+        <div class="clean-section-head">Bathroom</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Sink</label></li>
+          <li><input type="checkbox"><label>Wipe Down Mirror</label></li>
+          <li><input type="checkbox"><label>Clean Toilet</label></li>
+          <li><input type="checkbox"><label>Wipe Down Soap Dispenser / Paper Towel Dispenser</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 1 &amp; 3</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe Down Legs of ALL Swivel Chairs</label></li>
+          <li><input type="checkbox"><label>Wipe Down TRX Handles</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 2 &amp; 4</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe Down ALL Foam Pads (Yoga Mats, Yoga Boxes, Foam Squares &amp; Ovals)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Colored Dumbbells</label></li>
+        </ul>
+      </div>
+
+      <!-- THURSDAY -->
+      <div class="day-panel" id="berkley-thu">
+        <div class="clean-section-head">Common Areas</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Sweep Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Swiffer Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Vacuum Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Wipe Down High Touch Surfaces (Door Handles, Front Desk Counter, Light Switches)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Office Table / Tidy Up Office Space</label></li>
+        </ul>
+        <div class="clean-section-head">Outdoor Spaces</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Check and tidy outdoor spaces</label></li>
+        </ul>
+        <div class="clean-section-head">Treatment Rooms</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Space / Tidy Up For Next Day</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 1 &amp; 3</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Move Waiting Room Furniture for Sweeping / Swiffering / Dusting</label></li>
+          <li><input type="checkbox"><label>Wipe Down Chairs (Arms, Legs, Back, Seat Cushions)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Tables, Equipment &amp; Merch Racks</label></li>
+          <li><input type="checkbox"><label>Wipe Down / Dust TV</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 2 &amp; 4</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe Down Cable Machine</label></li>
+          <li><input type="checkbox"><label>Wipe Down Reformer and Under Reformer</label></li>
+          <li><input type="checkbox"><label>Wipe Down Bench</label></li>
+          <li><input type="checkbox"><label>Wipe Down Platform and Risers</label></li>
+        </ul>
+      </div>
+
+      <!-- FRIDAY -->
+      <div class="day-panel" id="berkley-fri">
+        <div class="clean-section-head">Common Areas</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Sweep Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Swiffer Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Wipe Down High Touch Surfaces (Door Handles, Front Desk Counter, Light Switches)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Office Table / Tidy Up Office Space</label></li>
+          <li><input type="checkbox"><label>Wipe Down and Clean Out Fridge</label></li>
+          <li><input type="checkbox"><label>Take ALL Trash Out</label></li>
+          <li><input type="checkbox"><label>Take ALL Recycling Out</label></li>
+        </ul>
+        <div class="clean-section-head">Outdoor Spaces</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Check and tidy outdoor spaces</label></li>
+        </ul>
+        <div class="clean-section-head">Treatment Rooms</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Space / Tidy Up For Next Day</label></li>
+        </ul>
+        <div class="clean-section-head">Bathroom</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Sink</label></li>
+          <li><input type="checkbox"><label>Wipe Down Mirror</label></li>
+          <li><input type="checkbox"><label>Clean Toilet</label></li>
+          <li><input type="checkbox"><label>Wipe Down Soap Dispenser / Paper Towel Dispenser</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 1 &amp; 3</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe ALL Barbells</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 2 &amp; 4</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Flat Surfaces (Wall Trim, Garbage Can Lid, Towel Shelf, etc.)</label></li>
+        </ul>
+      </div>
+
+      <!-- STUDENT INTERN -->
+      <div class="divider" style="margin-top:28px;"></div>
+      <div class="section-title" style="font-size:20px; margin-bottom:6px;">🎓 Student Intern Checklists</div>
+
+      <div class="card" style="margin-top:14px;">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <span class="card-tag tag-admin">Daily</span>
+            <span class="card-title">Student Intern — Daily</span>
+          </div>
+          <span class="card-chevron">▾</span>
+        </div>
+        <div class="card-body" style="padding-top:12px;">
+          <ul class="clean-list">
+            <li><input type="checkbox"><label>Tidy Up Gym</label></li>
+            <li><input type="checkbox"><label>Clean Up Treatment Rooms</label></li>
+            <li><input type="checkbox"><label>Sweep / Swiffer Hallway / Waiting Area</label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <span class="card-tag tag-admin">Weekly</span>
+            <span class="card-title">Student Intern — Weekly</span>
+          </div>
+          <span class="card-chevron">▾</span>
+        </div>
+        <div class="card-body" style="padding-top:12px;">
+          <ul class="clean-list">
+            <li><input type="checkbox"><label>Shred Paper</label></li>
+            <li><input type="checkbox"><label>Fold and Restock Towels</label></li>
+            <li><input type="checkbox"><label>Fill Spray Bottles</label></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <span class="card-tag tag-admin">Log</span>
+            <span class="card-title">Hydrocollator Checklist</span>
+          </div>
+          <span class="card-chevron">▾</span>
+        </div>
+        <div class="card-body" style="padding-top:12px;">
+          <ul class="clean-list">
+            <li><input type="checkbox"><label>Hydrocollator checked and logged</label></li>
+            <li style="padding:10px 0; border:none;">
+              <div style="display:flex; flex-direction:column; gap:10px; width:100%;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <label style="font-weight:700; font-size:14px; width:70px; flex-shrink:0;">Date:</label>
+                  <input type="text" placeholder="MM/DD/YYYY" style="border:1px solid var(--border); border-radius:6px; padding:7px 12px; font-size:14px; flex:1; font-family:Lato,sans-serif;">
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <label style="font-weight:700; font-size:14px; width:70px; flex-shrink:0;">Initials:</label>
+                  <input type="text" placeholder="Your initials" style="border:1px solid var(--border); border-radius:6px; padding:7px 12px; font-size:14px; flex:1; font-family:Lato,sans-serif;">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- end loc-berkley -->
+
+
+    <!-- ── BLOOMFIELD ── -->
+    <div class="loc-panel" id="loc-bloomfield">
+      <div class="rule-box">📋 Bloomfield cleaning schedule — customize days and tasks to match your location's specific needs.</div>
+
+      <!-- Day selector -->
+      <div class="day-tabs">
+        <button class="day-btn active" onclick="switchDay('bloomfield','mon',this)">Mon</button>
+        <button class="day-btn" onclick="switchDay('bloomfield','tue',this)">Tue</button>
+        <button class="day-btn" onclick="switchDay('bloomfield','wed',this)">Wed</button>
+        <button class="day-btn" onclick="switchDay('bloomfield','thu',this)">Thu</button>
+        <button class="day-btn" onclick="switchDay('bloomfield','fri',this)">Fri</button>
+      </div>
+
+      <!-- MONDAY -->
+      <div class="day-panel active" id="bloomfield-mon">
+        <div class="clean-section-head">Common Areas</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Sweep Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Swiffer Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Wipe Down High Touch Surfaces (Door Handles, Front Desk Counter, Light Switches)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Office Table / Tidy Up Office Space</label></li>
+        </ul>
+        <div class="clean-section-head">Outdoor Spaces</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Check and tidy outdoor spaces</label></li>
+        </ul>
+        <div class="clean-section-head">Treatment Rooms</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Spaces / Tidy Up For Next Day</label></li>
+          <li><input type="checkbox"><label>Take Inventory of Items</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 1 &amp; 3</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe Down Mirrors in Gym</label></li>
+          <li><input type="checkbox"><label>Wipe Down Nustep and Bike</label></li>
+          <li><input type="checkbox"><label>Wipe Down Yellow Bars</label></li>
+          <li><input type="checkbox"><label>Clean / Dust Water Dispenser / Water Rack</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 2 &amp; 4</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Dust / Wipe / Vacuum Under Treatment Tables</label></li>
+          <li><input type="checkbox"><label>Wipe Down Medicine Balls</label></li>
+          <li><input type="checkbox"><label>Wipe Down Bosu Balls, Balance Boards / Discs</label></li>
+          <li><input type="checkbox"><label>Wipe Down Calf Raise / Stretch Board</label></li>
+        </ul>
+      </div>
+
+      <!-- TUESDAY -->
+      <div class="day-panel" id="bloomfield-tue">
+        <div class="clean-section-head">Common Areas</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Sweep Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Swiffer Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Vacuum Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Wipe Down High Touch Surfaces (Door Handles, Front Desk Counter, Light Switches)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Office Table / Tidy Up Office Space</label></li>
+        </ul>
+        <div class="clean-section-head">Treatment Rooms</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Space / Tidy Up For Next Day</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 1 &amp; 3</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Dust All Ledges</label></li>
+          <li><input type="checkbox"><label>Dust Ceiling Corners</label></li>
+          <li><input type="checkbox"><label>Wipe Down ALL Kettlebells + Shelving</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 2 &amp; 4</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe Down ALL Dumbbells + Shelving</label></li>
+          <li><input type="checkbox"><label>Wipe Down Chairs (Arms / Legs)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Desk Area</label></li>
+        </ul>
+      </div>
+
+      <!-- WEDNESDAY -->
+      <div class="day-panel" id="bloomfield-wed">
+        <div class="clean-section-head">Common Areas</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Sweep Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Swiffer Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Wipe Down High Touch Surfaces (Door Handles, Front Desk Counter, Light Switches)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Office Table / Tidy Up Office Space</label></li>
+        </ul>
+        <div class="clean-section-head">Treatment Rooms</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Space / Tidy Up For Next Day</label></li>
+          <li><input type="checkbox"><label>Wipe Down Hydrocollator</label></li>
+        </ul>
+        <div class="clean-section-head">Bathroom</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Sink</label></li>
+          <li><input type="checkbox"><label>Wipe Down Mirror</label></li>
+          <li><input type="checkbox"><label>Clean Toilet</label></li>
+          <li><input type="checkbox"><label>Wipe Down Soap Dispenser / Paper Towel Dispenser</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 1 &amp; 3</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe Down Legs of ALL Swivel Chairs</label></li>
+          <li><input type="checkbox"><label>Wipe Down TRX Handles</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 2 &amp; 4</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe Down ALL Foam Pads (Yoga Mats, Yoga Boxes, Foam Squares &amp; Ovals)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Colored Dumbbells</label></li>
+        </ul>
+      </div>
+
+      <!-- THURSDAY -->
+      <div class="day-panel" id="bloomfield-thu">
+        <div class="clean-section-head">Common Areas</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Sweep Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Swiffer Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Vacuum Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Wipe Down High Touch Surfaces (Door Handles, Front Desk Counter, Light Switches)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Office Table / Tidy Up Office Space</label></li>
+        </ul>
+        <div class="clean-section-head">Treatment Rooms</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Space / Tidy Up For Next Day</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 1 &amp; 3</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Move Waiting Room Furniture for Sweeping / Swiffering / Dusting</label></li>
+          <li><input type="checkbox"><label>Wipe Down Chairs (Arms, Legs, Back, Seat Cushions)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Tables, Equipment &amp; Merch Racks</label></li>
+          <li><input type="checkbox"><label>Wipe Down / Dust TV</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 2 &amp; 4</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe Down Cable Machine</label></li>
+          <li><input type="checkbox"><label>Wipe Down Reformer and Under Reformer</label></li>
+          <li><input type="checkbox"><label>Wipe Down Bench</label></li>
+          <li><input type="checkbox"><label>Wipe Down Platform and Risers</label></li>
+        </ul>
+      </div>
+
+      <!-- FRIDAY -->
+      <div class="day-panel" id="bloomfield-fri">
+        <div class="clean-section-head">Common Areas</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Sweep Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Swiffer Gym, Hallway, and Waiting Area</label></li>
+          <li><input type="checkbox"><label>Wipe Down High Touch Surfaces (Door Handles, Front Desk Counter, Light Switches)</label></li>
+          <li><input type="checkbox"><label>Wipe Down Office Table / Tidy Up Office Space</label></li>
+          <li><input type="checkbox"><label>Wipe Down and Clean Out Fridge</label></li>
+          <li><input type="checkbox"><label>Take ALL Trash Out</label></li>
+          <li><input type="checkbox"><label>Take ALL Recycling Out</label></li>
+        </ul>
+        <div class="clean-section-head">Treatment Rooms</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Space / Tidy Up For Next Day</label></li>
+        </ul>
+        <div class="clean-section-head">Bathroom</div>
+        <ul class="clean-list">
+          <li><input type="checkbox"><label>Wipe Down Sink</label></li>
+          <li><input type="checkbox"><label>Wipe Down Mirror</label></li>
+          <li><input type="checkbox"><label>Clean Toilet</label></li>
+          <li><input type="checkbox"><label>Wipe Down Soap Dispenser / Paper Towel Dispenser</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 1 &amp; 3</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Wipe ALL Barbells</label></li>
+        </ul>
+        <div class="clean-section-head biweekly-head">Bi-Weekly — Weeks 2 &amp; 4</div>
+        <ul class="clean-list biweekly">
+          <li><input type="checkbox"><label>Flat Surfaces (Wall Trim, Garbage Can Lid, Towel Shelf, etc.)</label></li>
+        </ul>
+      </div>
+
+      <!-- Bloomfield Intern checklists -->
+      <div class="divider" style="margin-top:28px;"></div>
+      <div class="section-title" style="font-size:20px; margin-bottom:6px;">🎓 Student Intern Checklists</div>
+      <div class="card" style="margin-top:14px;">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <span class="card-tag tag-admin">Daily</span>
+            <span class="card-title">Student Intern — Daily</span>
+          </div>
+          <span class="card-chevron">▾</span>
+        </div>
+        <div class="card-body" style="padding-top:12px;">
+          <ul class="clean-list">
+            <li><input type="checkbox"><label>Tidy Up Gym</label></li>
+            <li><input type="checkbox"><label>Clean Up Treatment Rooms</label></li>
+            <li><input type="checkbox"><label>Sweep / Swiffer Hallway / Waiting Area</label></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <span class="card-tag tag-admin">Weekly</span>
+            <span class="card-title">Student Intern — Weekly</span>
+          </div>
+          <span class="card-chevron">▾</span>
+        </div>
+        <div class="card-body" style="padding-top:12px;">
+          <ul class="clean-list">
+            <li><input type="checkbox"><label>Shred Paper</label></li>
+            <li><input type="checkbox"><label>Fold and Restock Towels</label></li>
+            <li><input type="checkbox"><label>Fill Spray Bottles</label></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" onclick="toggleCard(this)">
+          <div class="card-header-left">
+            <span class="card-tag tag-admin">Log</span>
+            <span class="card-title">Hydrocollator Checklist</span>
+          </div>
+          <span class="card-chevron">▾</span>
+        </div>
+        <div class="card-body" style="padding-top:12px;">
+          <ul class="clean-list">
+            <li><input type="checkbox"><label>Hydrocollator checked and logged</label></li>
+            <li style="padding:10px 0; border:none;">
+              <div style="display:flex; flex-direction:column; gap:10px; width:100%;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <label style="font-weight:700; font-size:14px; width:70px; flex-shrink:0;">Date:</label>
+                  <input type="text" placeholder="MM/DD/YYYY" style="border:1px solid var(--border); border-radius:6px; padding:7px 12px; font-size:14px; flex:1; font-family:Lato,sans-serif;">
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                  <label style="font-weight:700; font-size:14px; width:70px; flex-shrink:0;">Initials:</label>
+                  <input type="text" placeholder="Your initials" style="border:1px solid var(--border); border-radius:6px; padding:7px 12px; font-size:14px; flex:1; font-family:Lato,sans-serif;">
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- end loc-bloomfield -->
+
+  </div><!-- end panel-cleaning -->
+
 </main>
 
 <script>
@@ -1616,6 +2218,30 @@
       </div>
     `).join('');
   }
+
+  function switchLoc(loc, btn) {
+    document.querySelectorAll('.loc-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.loc-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('loc-' + loc).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function switchDay(loc, day, btn) {
+    const locPanel = document.getElementById('loc-' + loc);
+    locPanel.querySelectorAll('.day-panel').forEach(p => p.classList.remove('active'));
+    locPanel.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(loc + '-' + day).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Strikethrough on clean-list checkboxes
+  document.addEventListener('change', function(e) {
+    if (e.target.type === 'checkbox' && e.target.closest('.clean-list')) {
+      const li = e.target.closest('li');
+      li.classList.toggle('done-clean', e.target.checked);
+    }
+  });
+
 </script>
 </body>
 </html>
