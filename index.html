@@ -1516,16 +1516,18 @@
   }
 
   function toggleCard(header) {
-    const body = header.nextElementSibling;
-    if (body && body.classList.contains('card-body')) {
+    const card = header.closest('.card');
+    const body = card ? card.querySelector('.card-body') : null;
+    if (body) {
       header.classList.toggle('open');
       body.classList.toggle('open');
     }
   }
 
   function toggleFlow(header) {
-    const body = header.nextElementSibling;
-    if (body && body.classList.contains('flow-step-body')) {
+    const step = header.closest('.flow-step');
+    const body = step ? step.querySelector('.flow-step-body') : null;
+    if (body) {
       header.classList.toggle('open');
       body.classList.toggle('open');
     }
