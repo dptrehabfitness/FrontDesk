@@ -233,13 +233,17 @@
   }
   .script-line:last-child { border-bottom: none; }
   .script-step-label {
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--teal-mid);
-    display: block;
-    margin-bottom: 3px;
+    color: #ffffff;
+    background: rgba(248,113,113,0.25);
+    border-left: 3px solid var(--teal-mid);
+    display: inline-block;
+    padding: 2px 8px 2px 6px;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 4px;
   }
   .script-line span.placeholder {
     color: var(--teal-mid);
@@ -588,6 +592,17 @@
     margin-top: 1px;
   }
 
+  /* ── CARD SECTION TITLE (used inside card bodies) ── */
+  .card-section-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #111111;
+    margin: 20px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border);
+  }
+
   /* ── DIVIDER ── */
   .divider {
     height: 1px;
@@ -820,6 +835,16 @@
       <div class="cheat-card c-money" onclick="goTo('money','card-firstvisit')">
         <div class="cheat-card-title">First Visit Financial Setup</div>
         <div class="cheat-card-preview">"Before we get started I just want to review how payments work…"</div>
+        <div class="cheat-card-arrow">→</div>
+      </div>
+      <div class="cheat-card c-money" onclick="goTo('money','card-insverify')">
+        <div class="cheat-card-title">Calling Insurance — Verify Benefits</div>
+        <div class="cheat-card-preview">Step-by-step checklist: deductible, copay, visit limits, prior auth</div>
+        <div class="cheat-card-arrow">→</div>
+      </div>
+      <div class="cheat-card c-call" onclick="goTo('calls','card-latepatient')">
+        <div class="cheat-card-title">Patient Running Late — 5-Step Script</div>
+        <div class="cheat-card-preview">"I'm calling to make sure you're okay. Call me back by [time]."</div>
         <div class="cheat-card-arrow">→</div>
       </div>
     </div>
@@ -1129,6 +1154,57 @@
         </div>
       </div>
     </div>
+
+    <div class="card" id="card-latepatient">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-tag tag-call">Late Patient</span>
+          <span class="card-title">Patient is running late — 5-step script</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+        <div class="rule-box">Protect the schedule and the relationship. Lead with concern, follow with expectations.</div>
+
+        <div class="script-block">
+          <div class="script-label">📣 Step 1 — Set Expectations at the First Appointment</div>
+          <div class="script-line">"If you&apos;re ever running late, we need you to call us as soon as you know. That way, we can check with your provider to make sure there&apos;s still enough time to provide the care you need that day."</div>
+          <div class="script-line">"If not, we will need to cancel your appointment, and our attendance policy will apply."</div>
+        </div>
+
+        <div class="script-block">
+          <div class="script-label">📣 Step 2 — If They&apos;re 5–8 Min Late &amp; Haven&apos;t Called: You Call Them</div>
+          <div class="script-line"><span class="script-step-label">Call or Voicemail</span>"Hi <span class="placeholder">[Patient Name]</span>, this is <span class="placeholder">[Your Name]</span> calling from DPT Physical Therapy. I&apos;m worried because I had you scheduled for today at <span class="placeholder">[Time]</span> and you aren&apos;t here yet. I&apos;m calling to make sure you&apos;re okay."</div>
+          <div class="script-line">"Call me back by <span class="placeholder">[time — no more than 2 hours out]</span> to let me know you&apos;re alright and we can go from there."</div>
+        </div>
+
+        <div class="script-block">
+          <div class="script-label">📣 Step 3 — When They Arrive</div>
+          <div class="script-line">"I&apos;m so glad you&apos;re okay. I was starting to worry when you were late and we hadn&apos;t heard from you."</div>
+        </div>
+
+        <div class="script-block">
+          <div class="script-label">📣 Step 4 — If They Make Excuses</div>
+          <div class="script-line">"Do you think this might cause problems again?"</div>
+          <div class="script-line"><span class="script-step-label">If Yes →</span>"Let&apos;s go ahead and move your future appointments to a better time so this doesn&apos;t become an issue."</div>
+        </div>
+
+        <div class="script-block">
+          <div class="script-label">📣 Step 5 — Second Time Late</div>
+          <div class="script-line">"Since this has happened more than once, let&apos;s find a better appointment time that works with your schedule so you can consistently arrive on time."</div>
+        </div>
+
+        <div class="action-block">
+          <div class="action-label">✅ Do This Next</div>
+          <div class="action-item">If they can still be seen: check with provider before bringing them back</div>
+          <div class="action-item">If they cannot be seen: cancel and apply attendance policy calmly</div>
+          <div class="action-item">Offer to reschedule at a time that works better for their schedule</div>
+          <div class="action-item"><span class="sys-badge badge-sprypt">SpryPT</span> Document that patient was late, call was made, and outcome</div>
+          <div class="action-item"><span class="sys-badge badge-trello">Trello</span> Create follow-up card if attendance pattern is developing</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 
@@ -1188,6 +1264,120 @@
           <div class="script-line"><span class="script-step-label">Step 3 — Reinforce</span>"We collect patient responsibility during visits so accounts stay current."</div>
           <div class="script-line"><span class="script-step-label">Step 4 — Move to payment</span>"Today your portion is $<span class="placeholder">[amount]</span>. How would you like to take care of that?"</div>
         </div>
+      </div>
+    </div>
+
+    <div class="card" id="card-insverify">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-header-left">
+          <span class="card-tag tag-money">Verification</span>
+          <span class="card-title">Calling insurance to verify eligibility &amp; benefits</span>
+        </div>
+        <span class="card-chevron">▾</span>
+      </div>
+      <div class="card-body">
+
+        <div class="rule-box">Always verify before the first visit. Never guess costs. Write down the rep name and reference number every time.</div>
+
+        <!-- BEFORE YOU CALL -->
+        <p class="card-section-title">Before You Call — Have This Ready</p>
+        <ul class="checklist" id="ins-before-list">
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Patient's insurance card (front &amp; back)</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Patient name (exactly as it appears on the card)</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Patient date of birth</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Member ID / Policy number</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Group number (if listed)</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Provider Services phone number (back of card)</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>DPT NPI number (ask your supervisor if unsure)</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Pen + paper or SpryPT open and ready to document</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Provider portal access confirmed — if a portal needs to be set up, talk to the clinic director or owner before proceeding</label></li>
+        </ul>
+
+        <!-- OPENING SCRIPT -->
+        <p class="card-section-title">Opening Script</p>
+        <div class="script-block">
+          <div class="script-label">📣 When They Answer</div>
+          <div class="script-line">"Hi, this is <span class="placeholder">[Your Name]</span> calling from DPT Physical Therapy. I&apos;m calling to verify outpatient physical therapy eligibility and benefits for one of our patients. Can you confirm you&apos;re the right department for that?"</div>
+          <div class="script-line">"Great — I have the patient&apos;s member ID as <span class="placeholder">[ID]</span>, name <span class="placeholder">[Patient Name]</span>, date of birth <span class="placeholder">[DOB]</span>. Can you pull that up?"</div>
+        </div>
+
+        <!-- ELIGIBILITY QUESTIONS -->
+        <p class="card-section-title">Eligibility &amp; Coverage Questions</p>
+        <ul class="checklist" id="ins-elig-list">
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Is the patient currently active and eligible for benefits?</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>What is the effective date of the plan?</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>What type of plan is this? (HMO / PPO / EPO / Medicare / Medicaid)</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Is DPT Physical Therapy in-network with this plan? (Provide your NPI)</label></li>
+        </ul>
+
+        <!-- BENEFITS / COST QUESTIONS -->
+        <p class="card-section-title">Benefits &amp; Patient Cost Questions</p>
+        <ul class="checklist" id="ins-benefits-list">
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Does the patient have a deductible? How much is it, and how much has been met so far?</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Does the patient have a copay for outpatient PT? (Flat amount per visit)</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Does the patient have coinsurance? (% they owe after deductible is met)</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Does the copay/coinsurance apply before or after the deductible?</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>What is the patient&apos;s out-of-pocket maximum? How much has been met?</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>How many outpatient PT visits are allowed per year?</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>How many visits have been used so far this plan year?</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Is there a hard visit cap, or can more be requested if medically necessary?</label></li>
+        </ul>
+
+        <!-- PRIOR AUTH TOGGLE -->
+        <p class="card-section-title">Prior Authorization</p>
+        <div style="display:flex;align-items:center;gap:14px;background:#f5f5f5;border-radius:10px;padding:14px 18px;margin-bottom:14px;">
+          <span style="font-size:15px;font-weight:700;color:#333;">Does this plan require prior authorization for PT?</span>
+          <div style="display:flex;gap:10px;margin-left:auto;">
+            <button onclick="setAuth('yes',this)" id="auth-yes-btn" style="padding:7px 18px;border-radius:6px;border:2px solid #d8d8d8;background:#fff;font-family:Lato,sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all 0.15s;">Yes</button>
+            <button onclick="setAuth('no',this)" id="auth-no-btn" style="padding:7px 18px;border-radius:6px;border:2px solid #d8d8d8;background:#fff;font-family:Lato,sans-serif;font-weight:700;font-size:14px;cursor:pointer;transition:all 0.15s;">No</button>
+          </div>
+        </div>
+
+        <div id="auth-no-section" style="display:none;">
+          <div class="action-block">
+            <div class="action-label">✅ No Prior Auth Required</div>
+            <div class="action-item">Skip the prior auth section below</div>
+            <div class="action-item">Document "No prior auth required — confirmed [Date]" in SpryPT</div>
+            <div class="action-item">Proceed to wrap-up — get the rep name and reference number</div>
+          </div>
+        </div>
+
+        <div id="auth-yes-section" style="display:none;">
+          <div class="warn-box">⚠️ Prior auth is required. Do NOT schedule or treat until authorization is obtained. Claims will be denied without it.</div>
+          <ul class="checklist" id="ins-auth-list">
+            <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>What do you need to submit the auth request? (Diagnosis code, referral, clinical notes?)</label></li>
+            <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>What is the fax number or portal to submit the auth request?</label></li>
+            <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>What is the typical turnaround time for auth approval?</label></li>
+            <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Is there a process for a rush or expedited auth if the patient needs to be seen quickly?</label></li>
+            <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>If more visits are needed later, how do we request a continuation of auth?</label></li>
+          </ul>
+          <div class="script-block" style="margin-top:14px;">
+            <div class="script-label">📣 If Auth Is Still Pending — Tell the Patient</div>
+            <div class="script-line">"We&apos;ve submitted the authorization request to your insurance. We can&apos;t schedule your first visit until it&apos;s approved — we&apos;ll call you as soon as we hear back, usually within <span class="placeholder">[X business days]</span>."</div>
+          </div>
+        </div>
+
+        <!-- WRAP UP -->
+        <p class="card-section-title">Before You Hang Up</p>
+        <ul class="checklist" id="ins-wrapup-list">
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Get the representative&apos;s name</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Get the call reference number</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Note the date and time of the call</label></li>
+          <li><input type="checkbox" onchange="toggleInsCheck(this)"><label>Ask: "Is there anything else I should know about this patient&apos;s PT benefits?"</label></li>
+        </ul>
+
+        <div class="action-block" style="margin-top:18px;">
+          <div class="action-label">✅ After the Call — Document Everything</div>
+          <div class="action-item"><span class="sys-badge badge-sprypt">SpryPT</span> Log: deductible, copay/coinsurance, visit limit, visits used, auth status, rep name, reference #, call date</div>
+          <div class="action-item">Call or text the patient with their cost estimate before their first visit</div>
+          <div class="action-item"><span class="sys-badge badge-trello">Trello</span> Create a task if auth is pending or any follow-up is needed</div>
+          <div class="action-item">Never guess costs — if something is unclear, call back and ask</div>
+        </div>
+
+        <div style="text-align:right;margin-top:14px;">
+          <button onclick="resetInsVerify()" style="background:none;border:1px solid #ccc;border-radius:6px;padding:6px 14px;font-size:13px;font-family:Lato,sans-serif;color:#666;cursor:pointer;">↺ Reset checklist</button>
+        </div>
+
       </div>
     </div>
 
@@ -2170,10 +2360,12 @@
     { keywords: ['hesitate','check my schedule','hold a time'], panel: 'calls', card: 'card-hesitate', title: 'Patient Hesitates', tag: 'tag-call', preview: '"Let\'s hold a time now so you don\'t miss out."' },
     { keywords: ['phone','etiquette','hold','answer','greeting'], panel: 'calls', card: 'card-phonebasics', title: 'Phone Etiquette Basics', tag: 'tag-call', preview: 'Answer within 3 rings. Always offer 2 options.' },
     { keywords: ['how much','cost','price','insurance','benefits','verify'], panel: 'money', card: 'card-howmuch', title: 'Patient Asks Cost', tag: 'tag-money', preview: '"We\'ll verify your benefits and call you before your visit."' },
+    { keywords: ['verify','verification','eligibility','benefits','call insurance','deductible','copay','coinsurance','prior auth','authorization','visit limit','referral'], panel: 'money', card: 'card-insverify', title: 'Calling Insurance — Eligibility & Benefits Verification', tag: 'tag-money', preview: 'Step-by-step call script + checklist: deductible, copay, visit limits, prior auth' },
     { keywords: ['first visit','financial','deductible','surprised by cost'], panel: 'money', card: 'card-firstvisit', title: 'First Visit Financial Setup', tag: 'tag-money', preview: '"Before we get started I just want to review how payments work."' },
     { keywords: ['collect','payment','balance','billed','today','portion','copay'], panel: 'money', card: 'card-collect', title: 'Collecting Patient Payment', tag: 'tag-money', preview: '"Your portion today is $[amount]. How would you like to take care of that?"' },
     { keywords: ['cancel','cancellation','24 hours','reschedule','policy'], panel: 'cancel', card: 'card-latecancel', title: 'Late Cancel Save Script', tag: 'tag-cancel', preview: '"Before we cancel, would later today or tomorrow work?"' },
     { keywords: ['no show','noshow','5 minutes','missed','late'], panel: 'noshow', card: 'card-nsocall', title: 'No Show — Call at 5 Min', tag: 'tag-noshow', preview: '"We just wanted to make sure you\'re okay."' },
+    { keywords: ['late','running late','tardy','patient late','5 step','protect schedule'], panel: 'calls', card: 'card-latepatient', title: 'Patient Running Late — 5-Step Script', tag: 'tag-call', preview: '"I\'m calling to make sure you\'re okay. Call me back by [time]."' },
     { keywords: ['trello','card','handoff','format'], panel: 'systems', card: 'card-trello', title: 'Trello Card Format', tag: 'tag-system', preview: 'Title: Patient Name — Task. Fill all 5 fields.' },
     { keywords: ['sprypt','document','log','notes','attendance'], panel: 'systems', card: null, title: 'SpryPT Documentation', tag: 'tag-system', preview: 'Log anything that affects scheduling, insurance, money, or attendance.' },
   ];
@@ -2229,6 +2421,56 @@
     locPanel.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
     document.getElementById(loc + '-' + day).classList.add('active');
     btn.classList.add('active');
+  }
+
+  // ── INSURANCE VERIFY CARD ──
+  function toggleInsCheck(cb) {
+    const li = cb.closest('li');
+    if (li) li.classList.toggle('checked-item', cb.checked);
+  }
+
+  function setAuth(val, btn) {
+    const yesBtn = document.getElementById('auth-yes-btn');
+    const noBtn = document.getElementById('auth-no-btn');
+    const yesSection = document.getElementById('auth-yes-section');
+    const noSection = document.getElementById('auth-no-section');
+    yesBtn.style.background = '#fff';
+    yesBtn.style.borderColor = '#d8d8d8';
+    yesBtn.style.color = '#333';
+    noBtn.style.background = '#fff';
+    noBtn.style.borderColor = '#d8d8d8';
+    noBtn.style.color = '#333';
+    if (val === 'yes') {
+      yesBtn.style.background = '#dc2626';
+      yesBtn.style.borderColor = '#dc2626';
+      yesBtn.style.color = '#fff';
+      yesSection.style.display = 'block';
+      noSection.style.display = 'none';
+    } else {
+      noBtn.style.background = '#16a34a';
+      noBtn.style.borderColor = '#16a34a';
+      noBtn.style.color = '#fff';
+      noSection.style.display = 'block';
+      yesSection.style.display = 'none';
+    }
+  }
+
+  function resetInsVerify() {
+    ['ins-before-list','ins-elig-list','ins-benefits-list','ins-auth-list','ins-wrapup-list'].forEach(id => {
+      const list = document.getElementById(id);
+      if (!list) return;
+      list.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+        const li = cb.closest('li');
+        if (li) li.classList.remove('checked-item');
+      });
+    });
+    document.getElementById('auth-yes-section').style.display = 'none';
+    document.getElementById('auth-no-section').style.display = 'none';
+    const yesBtn = document.getElementById('auth-yes-btn');
+    const noBtn = document.getElementById('auth-no-btn');
+    if (yesBtn) { yesBtn.style.background='#fff'; yesBtn.style.borderColor='#d8d8d8'; yesBtn.style.color='#333'; }
+    if (noBtn) { noBtn.style.background='#fff'; noBtn.style.borderColor='#d8d8d8'; noBtn.style.color='#333'; }
   }
 
   // Strikethrough on clean-list checkboxes
